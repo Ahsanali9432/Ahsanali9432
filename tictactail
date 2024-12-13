@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe-Game</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="msgcontainer hide">
+        <p id="msg">Winner</p>
+        <button id="newbtn">New Game</button>
+    </div>
+<main>
+    <h1>Tic Tac Toe</h1>
+    <div class="container">
+    <div class="game">
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+    </div>
+    </div>
+    <button id="resetbtn">Reset Button</button>
+</main>
+<script src="Script.js"></script>
+    
+</body>
+</html>
+body{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #548687;
+    text-align: center;
+}
+h1{
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 3);
+}
+.container{
+    height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vh;
+}
+.game{
+    height: 60vmin;
+    width: 60vmin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vh;
+}
+.box{
+    height: 18vmin;
+    width: 18vmin;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 3);
+    font-size: 8vmin;
+    color: #b0413e;
+    background-color: #ffffc7;
+}
+#resetbtn{
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    color: white;
+    background-color: black;
+    border: none;
+}
+#newbtn{
+    padding: 0.5rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    color: white;
+    background-color: black;
+    border: none;
+}
+#msg{
+    color:#ffffc7;
+    font-size: 5vmin;
+}
+.msgcontainer{
+    height: 20vmin;
+}
+let boxes=document.querySelectorAll(".box");
+let rst=document.querySelector("#resetbtn");
+let newbn=document.querySelector("#newbtn");
+let msgcn=document.querySelector(".msgcontainer");
+let msg=document.querySelector("#btn");
+let turn0=true;//playerX and playerO
+const winpatern=[
+    [0,1,2],
+    [0,3,6],
+    [0,4,8],
+    [1,4,7],
+    [2,5,8],
+    [2,4,6],
+    [3,4,5],
+    [6,7,8]
+];
+const resetbtn=()=>{
+    turn0=true;
+    enabledbox();
+    msgcontainer.classlist.add("hode");
+}
+boxes.forEach((box)=>{
+    box.addEventListener("click",()=>{
+        console.log("box click");
+        if(turn0){
+            box.innerText="O";
+            turn0=false;
+        }
+        else{
+            box.innerText="X";
+            turn0=true;
+        }
+        box.disabled=true;
+        checkwiner();
+    });
+});
+    const disablebox=()=>{
+        for(let box of boxes){
+            box.disabled=true;
+            box.innerText="";
+        }
+    }
+    const enabledbox=()=>{
+        for(let box of boxes){
+            box.disabled=false;
+        }}
+    
+        const checkwiner=()=>{
+            for( let patern of winpatern){
+            let p1=boxes[patern[0]].innerText;
+            let p2= boxes[patern[1]].innerText;
+            let p3=boxes[patern[2]].innerText;
+            if(p1 !=""&& p2 !=""&&p3 !=""){
+            if(p1===p2&&p2===p3){
+                console.log("winner",p1);
+                disablebox();
+            }
+        }
+    
+            }
+        };
